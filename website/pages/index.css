@@ -70,3 +70,9 @@ position: absolute;
     transform: scale(1.1); 
 }
 
+.product-item 
+{
+    font-size: 50px;
+    font-weight: bold;
+    margin: 10px 0;
+}

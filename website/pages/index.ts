@@ -1,21 +1,29 @@
-import type { Item } from "types";
 import { send } from "clientUtilities";
 import { create } from "componentUtilities";
 
-var itemInput = document.querySelector<HTMLInputElement>("#itemInput")!;
-var amountInput = document.querySelector<HTMLInputElement>("#amountInput")!;
-var addButton = document.querySelector<HTMLButtonElement>("#addButton")!;
-var itemsUl = document.querySelector<HTMLUListElement>("#itemsUl")!;
+const productsList = document.querySelector<HTMLUListElement>("#productsList")!;
 
-var items = await send<Item[]>("getItems");
+const products = await send("getProducts");
 
-for (var i = 0; i < items.length; i++) {
-  var itemLi = create("li");
-  itemLi.innerText = `${items[i].amount} ${items[i].name}`;
-  itemsUl.append(itemLi);
+
+    for (const p of products) {
+    const li = create("li");
+    li.className = "product-item";
+
+    li.innerText = `${p.name} - ${p.price}₪ `;
+
+    // כפתור מחיקה
+    const deleteBtn = create("button");
+    deleteBtn.innerText = "❌";
+    deleteBtn.onclick = async () => {
+        await send("deleteProduct", p.id);
+        location.reload();
+    };
+
+    li.append(deleteBtn);
+    productsList.append(li);
 }
 
-addButton.onclick = async function() {
-  await send("addItem", itemInput.value, parseInt(amountInput.value));
-  location.reload();
-};
+
+  
+

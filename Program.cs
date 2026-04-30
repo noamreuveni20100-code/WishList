@@ -25,17 +25,31 @@ class Program
 
       try
       {
-        if (request.Name == "getItems")
+        if (request.Name == "getProducts")
         {
-          request.Respond(database.Items);
+          request.Respond(database.Products);
         }
-        else if (request.Name == "addItem")
+        else if (request.Name == "addProduct")
         {
-          var (name, amount) = request.GetParams<(string, int)>();
-          var item = new Item(name, amount);
-          database.Items.Add(item);
+          var (name, price, imageUrl, description) = request.GetParams<(string, double, string, string)>();
+          var product = new Product(name, price, imageUrl, description);
+          database.Products.Add(product);
           database.SaveChanges();
         }
+        else if (request.Name == "deleteProduct")
+{
+  int id = request.GetParams<int>();
+
+    var product = database.Products.Find(id);
+
+    if (product != null)
+    {
+        database.Products.Remove(product);
+        database.SaveChanges();
+    }
+}
+
+
       }
       catch (Exception exception)
       {
@@ -49,12 +63,16 @@ class Program
 
 class Database() : DatabaseCore("database")
 {
-  public DbSet<Item> Items { get; set; } = default!;
+  public DbSet<Product> Products { get; set; } = default!;
 }
 
-class Item(string name, double amount)
+
+class Product(string name, double price, string imageUrl, string description)
 {
   public int Id { get; set; } = default!;
   public string Name { get; set; } = name;
-  public double Amount { get; set; } = amount;
+  public double Price { get; set; } = price;
+  public string ImageUrl { get; set; } = imageUrl;
+  public string Description { get; set; } = description;
 }
+

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="other.css" />
+    <link rel="stylesheet" href="shared.css" />
     <title>Index Page</title>
+    <link rel="stylesheet" href="shared.css">
   </head>
 
   <header>
@@ -12,6 +14,33 @@
   </header>
 
   <body>
-    <h1>My other page</h1>
+    <div class="product-form-container">
+  <h2>Add a new product</h2>
+
+    <div class="form-field">
+      <label for="product-name">:Product name</label>
+      <input type="text" id="product-name" name="productName" required>
+    
+    </div>
+
+    <div class="form-field">
+      <label for="product-price">:Price</label>
+      <input type="number" id="product-price" name="productPrice" step="0.01" required>
+    </div>
+
+    <div class="form-field">
+      <label for="product-image">:URL</label>
+      <input type="url" id="product-image" name="productImage" required>
+    </div>
+
+    <div class="form-field">
+      <label for="product-description">:Product description</label>
+      <textarea id="product-description" name="productDescription" rows="4"></textarea>
+    </div>
+
+    <button id="add-btn">Add product</button>
+ 
+</div>
+ <script type="module" src="other.js"></script>
   </body>
 </html>
