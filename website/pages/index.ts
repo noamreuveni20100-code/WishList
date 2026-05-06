@@ -6,15 +6,16 @@ const productsList = document.querySelector<HTMLUListElement>("#productsList")!;
 const products = await send("getProducts");
 
 
-    for (const p of products) {
+for (const p of products) {
     const li = create("li");
     li.className = "product-item";
 
     li.innerText = `${p.name} - ${p.price}₪ `;
 
     // כפתור מחיקה
-    const deleteBtn = create("button");
-    deleteBtn.innerText = "❌";
+    const deleteBtn = create("button", { className: "deleteBtn" },
+        create("img", { src: "../images/trash.png" })
+    );
     deleteBtn.onclick = async () => {
         await send("deleteProduct", p.id);
         location.reload();
@@ -25,5 +26,5 @@ const products = await send("getProducts");
 }
 
 
-  
+
 

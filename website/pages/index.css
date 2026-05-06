@@ -76,3 +76,16 @@ position: absolute;
     font-weight: bold;
     margin: 10px 0;
 }
+
+img {
+  display: block;
+}
+
+.deleteBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transform: translateY(7px);
+  margin: 0;
+  padding: 0;
+}
