@@ -1,19 +1,23 @@
 import { send } from "clientUtilities";
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const params = new URLSearchParams(location.search);
 
-if (!id) {
-  alert("No product ID provided");
-}
+const id = Number(params.get("id"));
 
-const product = await send("getProductById", Number(id));
+const product = await send("getProductById", id);
 
-(document.getElementById("name") as HTMLElement).innerText = product.name;
-(document.getElementById("image") as HTMLImageElement).src = product.imageUrl;
-(document.getElementById("price") as HTMLElement).innerText = product.price + "₪";
-(document.getElementById("description") as HTMLElement).innerText = product.description;
+const nameElement = document.querySelector<HTMLHeadingElement>("#product-name")!;
 
+const imageElement = document.querySelector<HTMLImageElement>("#product-image")!;
 
+const priceElement = document.querySelector<HTMLHeadingElement>("#product-price")!;
 
+const descriptionElement = document.querySelector<HTMLParagraphElement>("#product-description")!;
 
+nameElement.innerText = product.name;
+
+imageElement.src = product.imageUrl;
+
+priceElement.innerText = `${product.price}₪`;
+
+descriptionElement.innerText = product.description;

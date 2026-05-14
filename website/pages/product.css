@@ -1,0 +1,24 @@
+.product-container {
+    display: flex;
+    flex-direction: column;
+    align-items:center ;
+
+    margin-top: 10px;
+}
+
+#product-image {
+    width: 250px;
+    border-radius: 12px;
+}
+
+#product-description {
+    width: 400px;
+    font-size: 34px;
+    text-align: center;
+}
+
+#product-name 
+{
+    margin-top: 20px;
+
+}

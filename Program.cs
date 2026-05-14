@@ -29,6 +29,23 @@ class Program
         {
           request.Respond(database.Products);
         }
+
+else if (request.Name == "getProductById")
+{
+    int id = request.GetParams<int>();
+
+    var product = database.Products.Find(id);
+
+    if (product == null)
+    {
+        request.SetStatusCode(404);
+    }
+    else
+    {
+        request.Respond(product);
+    }
+}
+
         else if (request.Name == "addProduct")
         {
           var (name, price, imageUrl, description) = request.GetParams<(string, double, string, string)>();
@@ -37,17 +54,17 @@ class Program
           database.SaveChanges();
         }
         else if (request.Name == "deleteProduct")
-{
-  int id = request.GetParams<int>();
+        {
+          int id = request.GetParams<int>();
 
-    var product = database.Products.Find(id);
+          var product = database.Products.Find(id);
 
-    if (product != null)
-    {
-        database.Products.Remove(product);
-        database.SaveChanges();
-    }
-}
+          if (product != null)
+          {
+            database.Products.Remove(product);
+            database.SaveChanges();
+          }
+        }
 
 
       }
