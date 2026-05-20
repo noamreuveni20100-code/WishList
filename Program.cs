@@ -30,26 +30,26 @@ class Program
           request.Respond(database.Products);
         }
 
-else if (request.Name == "getProductById")
-{
-    int id = request.GetParams<int>();
+        else if (request.Name == "getProductById")
+        {
+          int id = request.GetParams<int>();
 
-    var product = database.Products.Find(id);
+          var product = database.Products.Find(id);
 
-    if (product == null)
-    {
-        request.SetStatusCode(404);
-    }
-    else
-    {
-        request.Respond(product);
-    }
-}
+          if (product == null)
+          {
+            request.SetStatusCode(404);
+          }
+          else
+          {
+            request.Respond(product);
+          }
+        }
 
         else if (request.Name == "addProduct")
         {
-          var (name, price, imageUrl, description) = request.GetParams<(string, double, string, string)>();
-          var product = new Product(name, price, imageUrl, description);
+          var (name, price, imageUrl, pageUrl, description ) = request.GetParams<(string, double, string, string, string)>();
+          var product = new Product(name, price, imageUrl, pageUrl, description);
           database.Products.Add(product);
           database.SaveChanges();
         }
@@ -84,12 +84,14 @@ class Database() : DatabaseCore("database")
 }
 
 
-class Product(string name, double price, string imageUrl, string description)
+class Product(string name, double price, string imageUrl,string pageUrl, string description)
 {
   public int Id { get; set; } = default!;
   public string Name { get; set; } = name;
   public double Price { get; set; } = price;
   public string ImageUrl { get; set; } = imageUrl;
+    public string PageUrl { get; set; } = pageUrl;
+
   public string Description { get; set; } = description;
 }
 

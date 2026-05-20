@@ -4,6 +4,8 @@ const nameInput = document.querySelector<HTMLInputElement>("#product-name")!;
 const priceInput = document.querySelector<HTMLInputElement>("#product-price")!;
 const imageInput = document.querySelector<HTMLInputElement>("#product-image")!;
 const descInput = document.querySelector<HTMLTextAreaElement>("#product-description")!;
+const linkInput = document.querySelector<HTMLInputElement>("#product-link")!;
+
 const addButton = document.querySelector<HTMLButtonElement>("#add-btn")!;
 
 addButton.onclick = async () => {
@@ -11,6 +13,7 @@ addButton.onclick = async () => {
     nameInput.value,
     Number(priceInput.value),
     imageInput.value,
+    linkInput.value,
     descInput.value
   );
 

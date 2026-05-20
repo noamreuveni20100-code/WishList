@@ -30,16 +30,17 @@
 .form-field input,
 .form-field textarea {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  margin: 0%;
+  padding: 4px;
+  border: 2px solid #000000;
+  border-radius: 5px;
   font-size: 14px;
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background: #4CAF50;
+  background: #1cb7d3;
   color: white;
   border: none;
   border-radius: 6px;
@@ -48,6 +49,8 @@ button {
 }
 
 button:hover {
-  background: #45a049;
+  background: #276ae6;
+  transform: (1sec);
+
 }
 
