@@ -1,9 +1,12 @@
 import { send } from "clientUtilities";
 import { create } from "componentUtilities";
+import { createBar } from "script/funcs";
 
 const productsList = document.querySelector<HTMLUListElement>("#productsList")!;
 
 const products = await send("getProducts");
+
+document.body.prepend(createBar(null));
 
 
 for (const p of products) {

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/website/styles/general.css" />
+    <link rel="stylesheet" href="signUp.css" />
+    <title>mywishlist - Create Account</title>
+  </head>
+
+  <body>
+    <div id="boxDiv">
+      <h1>Join mywishlist</h1>
+
+      <table>
+        <tr>
+          <td>Username:</td>
+          <td><input id="usernameInput" placeholder="Choose a username..." /></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input id="passwordInput" type="password" placeholder="Create password..." /></td>
+        </tr>
+        <tr>
+          <td>Confirm:</td>
+          <td><input id="confirmInput" type="password" placeholder="Repeat password..." /></td>
+        </tr>
+      </table>
+      <br />
+      <button id="submitButton">Create Account</button>
+      <br />
+      <div id="errorDiv"></div>
+      <br />
+      <p>Already have an account? <a href="logIn.html">Log In here</a></p>
+    </div>
+
+    <script type="module" src="signUp.js"></script>
+  </body>
+</html>
