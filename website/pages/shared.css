@@ -1,46 +1,72 @@
-#wishlist{
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 70px;
-  font-weight:500;
+/* הבר הראשי - מחליף את #wishlist הישן וכולל את הרקע והפס התחתון */
+.main-nav-bar {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   letter-spacing: 1px;
-background-color: rgba(118, 199, 231, 0.5);
-background-position: fixed;
-padding: auto;
-border-bottom: solid #111;
-border-bottom-width: 9px;
+  background-color: rgba(118, 199, 231, 0.5);
+  border-bottom: solid #111;
+  border-bottom-width: 9px;
+  padding: 10px 20px; /* מרווח פנימי יפה מלמעלה ובצדדים */
 }
+
+/* הלוגו של mywishlist */
+.nav-logo {
+  font-size: 70px !important;
+  font-weight: 500;
+}
+
+/* האזור שמחזיק את הכפתורים או את שם המשתמש בצד ימין */
+.nav-user-area {
+  font-size: 50px;
+}
+
+/* עיצוב אחיד לכל הקישורים והכפתורים בתוך הבר */
+.main-nav-bar a, 
+.main-nav-bar button,
+.main-nav-bar span {
+  font-size: 50px ;
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit; /* שומר על הפונט של הבר */
+}
+
+/* עיצוב מיוחד לכפתור ה-Logout כדי שישתלב יפה ולא ייראה כמו כפתור אפור רגיל של דפדפן */
+.logout-btn {
+  background: none;
+  border: 2px solid #111;
+  border-radius: 8px;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background-color: #111;
+  color: #fff; /* הופך לשחור עם כתב לבן כשעוברים עליו */
+}
+
+/* שאר ה-CSS הכללי שלך נשאר אותו דבר */
 #containerDiv {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-body
-{
+body {
   margin: 0;
-    padding: 0;
+  padding: 0;
 }
 .authDiv {
-  margin: 10;
-  padding: 10;
+  margin: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 10;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 h1 {
-font-size: 150px;
+  font-size: 150px;
 }
-a{
-  font-size: 50px;
-}
-button{
-  font-size: 50px;
-}
-
- a:link,
-a:visited {
+a:link, a:visited {
   color: inherit;
   text-decoration: none;
 }

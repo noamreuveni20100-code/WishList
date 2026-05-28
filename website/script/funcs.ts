@@ -2,24 +2,27 @@ import { User } from "./types";
 
 export function createBar(user: User | null): HTMLElement {
     const bar = document.createElement("div");
-    bar.className = "main-nav-bar"; // הקלאס מעיצוב ה-shared.css שלך
+    bar.className = "main-nav-bar"; // הקלאס שקיבל את הרקע והפס התחתון
     
+    // שמירה על היישור שהיה לך
     bar.style.display = "flex";
     bar.style.justifyContent = "space-between";
     bar.style.alignItems = "center";
-
+    
     const logo = document.createElement("a");
-    logo.innerText = "mywishlist 🎁";
+    logo.innerText = "mywishlist";
     logo.href = "index.html";
-    logo.className = "nav-logo"; 
+    logo.className = "nav-logo"; // עיצוב הפונט הגדול (70px)
     bar.appendChild(logo);
 
     const userArea = document.createElement("div");
-    userArea.className = "nav-user-area";
+    userArea.className = "nav-user-area"; // אזור המשתמש (50px)
 
-    console.log(user)
     if (user) {
-        userArea.innerText = `Hello, ${user.username} | `;
+        // יוצרים אלמנט span לשם המשתמש כדי שנוכל לעצב אותו יפה ב-CSS
+        const welcomeSpan = document.createElement("span");
+        welcomeSpan.innerText = `Hello, ${user.username} | `;
+        userArea.appendChild(welcomeSpan);
         
         const logoutBtn = document.createElement("button");
         logoutBtn.innerText = "Logout";
@@ -30,8 +33,9 @@ export function createBar(user: User | null): HTMLElement {
         };
         userArea.appendChild(logoutBtn);
     } else {
+        // אם המשתמש לא מחובר, הקישורים נוצרים כאן ומקבלים אוטומטית 50px מה-CSS
         userArea.innerHTML = `
-            <a href="logIn.html" style="margin-right: 15px;">Log In</a>
+            <a href="logIn.html" style="margin-right: 25px;">Log In</a>
             <a href="signUp.html">Sign Up</a>
         `;
     }

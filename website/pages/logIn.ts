@@ -1,33 +1,40 @@
 import { send } from "clientUtilities";
-import { get } from "componentUtilities";
-import { createBar } from "script/funcs";
+import { createBar } from "script/funcs"; // 🌟 ייבוא הבר
 import { User } from "script/types";
 
-var usernameInput = get("input", "usernameInput");
-var passwordInput = get("input", "passwordInput");
-var submitButton = get("button", "submitButton");
-var errorDiv = get("div", "errorDiv");
+// --- 1. טעינת הבר העליון החכם ---
+const token = localStorage.getItem("token");
+let user: User | null = null;
 
-// בדיקה אם המשתמש כבר מחובר, כדי להציג את הבר העליון של mywishlist
-var token = localStorage.getItem("token");
-var user = await send<User | null>("getUser", token);
+if (token && token !== "") {
+    const response = await send<any>("getUser", token);
+    if (response && response !== "") {
+        user = response as User;
+    }
+}
+document.body.prepend(createBar(user)); 
 
-document.body.prepend(createBar(user));
 
-submitButton.onclick = async function () {
-  if (!usernameInput.value || !passwordInput.value) {
-    errorDiv.innerText = "Please fill in all fields.";
-    return;
-  }
+const usernameInput = document.querySelector<HTMLInputElement>("#username")!;
+const passwordInput = document.querySelector<HTMLInputElement>("#password")!;
+const loginButton = document.querySelector<HTMLButtonElement>("#login-btn")!;
 
-  var token = await send<string | null>("logIn", usernameInput.value, passwordInput.value);
+loginButton.onclick = async () => {
+    const username = usernameInput.value;
+    const password = passwordInput.value;
 
-  if (token == null) {
-    errorDiv.innerText = "Invalid username or password.";
-    return;
-  }
+    if (!username || !password) {
+        alert("Please fill in all fields");
+        return;
+    }
 
-  // שמירת הטוקן ומעבר לדף הבית של רשימת המשאלות
-  localStorage.setItem("token", token);
-  location.href = "index.html";
+    const returnedToken = await send<string>("logIn", username, password);
+
+    if (returnedToken === "") {
+        alert("Invalid username or password");
+    } else {
+        localStorage.setItem("token", returnedToken);
+        alert("Logged in successfully!");
+        location.href = "index.html"; // מעבר לדף הבית
+    }
 };

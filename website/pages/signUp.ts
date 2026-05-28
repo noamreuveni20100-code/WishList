@@ -1,40 +1,40 @@
 import { send } from "clientUtilities";
-import { get } from "componentUtilities";
-import { createBar } from "script/funcs";
+import { createBar } from "script/funcs"; // 🌟 ייבוא הבר
 import { User } from "script/types";
 
-var usernameInput = get("input", "usernameInput");
-var passwordInput = get("input", "passwordInput");
-var confirmInput = get("input", "confirmInput");
-var submitButton = get("button", "submitButton");
-var errorDiv = get("div", "errorDiv");
+// --- 1. טעינת הבר העליון החכם ---
+const token = localStorage.getItem("token");
+let user: User | null = null;
 
-var token = localStorage.getItem("token");
-var user = await send<User | null>("getUser", token);
+if (token && token !== "") {
+    const response = await send<any>("getUser", token);
+    if (response && response !== "") {
+        user = response as User;
+    }
+}
+document.body.prepend(createBar(user)); 
 
-document.body.prepend(createBar(user));
 
-submitButton.onclick = async function () {
-  // בדיקה בסיסית שהשדות מלאים
-  if (!usernameInput.value || !passwordInput.value || !confirmInput.value) {
-    errorDiv.innerText = "Please fill in all fields.";
-    return;
-  }
+const usernameInput = document.querySelector<HTMLInputElement>("#username")!;
+const passwordInput = document.querySelector<HTMLInputElement>("#password")!;
+const signupButton = document.querySelector<HTMLButtonElement>("#signup-btn")!;
 
-  // בדיקה שהסיסמאות תואמות
-  if (passwordInput.value != confirmInput.value) {
-    errorDiv.innerText = "Passwords do not match.";
-    return;
-  }
+signupButton.onclick = async () => {
+    const username = usernameInput.value;
+    const password = passwordInput.value;
 
-  // שליחת בקשת הרשמה לשרת
-  var token = await send<string | null>("signUp", usernameInput.value, passwordInput.value);
-  if (token == null) {
-    errorDiv.innerText = "A user with this username already exists.";
-    return;
-  }
+    if (!username || !password) {
+        alert("Please fill in all fields");
+        return;
+    }
 
-  // שמירה וכניסה לאתר
-  localStorage.setItem("token", token);
-  location.href = "index.html";
+    const returnedToken = await send<string>("signUp", username, password);
+
+    if (returnedToken === "") {
+        alert("Username already exists!");
+    } else {
+        localStorage.setItem("token", returnedToken);
+        alert("Registered and logged in successfully!");
+        location.href = "index.html"; // מעבר לדף הבית
+    }
 };
