@@ -95,3 +95,56 @@ img {
   margin: 0;
   padding: 0;
 }
+/* עיצוב קופסת ההסבר במסך הראשי */
+#welcomeMessage {
+  max-width: 600px;
+  width: 90%;
+  margin: 100px auto; /* מרווח מלמעלה ומקומם באמצע המסך */
+  padding: 40px 20px;
+  text-align: center; /* מרכז את כל הטקסט */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff; /* רקע לבן נקי */
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* צל עדין מאוד */
+}
+
+/* הכותרת הראשית */
+#welcomeMessage h1 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 42px;
+  color: #111111;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+/* טקסט ההסבר שמתחת לכותרת */
+#welcomeMessage p {
+  font-size: 18px;
+  color: #718096; /* צבע אפור עדין ומקצועי */
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* כפתור "להתחברות" מהיר בתוך תיבת ההסבר (אופציונלי, אם תרצה להוסיף ב-HTML) */
+#welcomeMessage .cta-button {
+  display: inline-block;
+  padding: 12px 30px;
+  font-family: Impact, sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  background-color: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+#welcomeMessage .cta-button:hover {
+  background-color: rgba(118, 199, 231, 1); /* הופך לתכלת של האתר במעבר עכבר */
+  color: #111111;
+}
+
+#welcomeMessage .cta-button:active {
+  transform: scale(0.98);
+}

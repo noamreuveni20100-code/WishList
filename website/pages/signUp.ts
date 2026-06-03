@@ -1,40 +1,64 @@
 import { send } from "clientUtilities";
-import { createBar } from "script/funcs"; // 🌟 ייבוא הבר
+import { createBar } from "script/funcs"; 
 import { User } from "script/types";
 
-// --- 1. טעינת הבר העליון החכם ---
 const token = localStorage.getItem("token");
 let user: User | null = null;
 
-if (token && token !== "") {
+// בדיקה אם המשתמש כבר מחובר
+if (token && token.trim() !== "") {
     const response = await send<any>("getUser", token);
     if (response && response !== "") {
         user = response as User;
+        location.href = "index.html";
     }
 }
+
+// טעינת הבר העליון
 document.body.prepend(createBar(user)); 
 
+// חיבור האלמנטים מה-HTML
+const usernameInput = document.querySelector<HTMLInputElement>("#usernameInput")!;
+const passwordInput = document.querySelector<HTMLInputElement>("#passwordInput")!;
+const confirmPasswordInput = document.querySelector<HTMLInputElement>("#confirmPasswordInput")!;
+const signupButton = document.querySelector<HTMLButtonElement>("#submitButton")!;
+const errorDiv = document.querySelector<HTMLDivElement>("#errorDiv")!; // 🌟 חיבור דיב השגיאות
 
-const usernameInput = document.querySelector<HTMLInputElement>("#username")!;
-const passwordInput = document.querySelector<HTMLInputElement>("#password")!;
-const signupButton = document.querySelector<HTMLButtonElement>("#signup-btn")!;
+// פונקציית עזר קטנה כדי לנקות את השגיאה כשהמשתמש מתחיל לתקן ולהקליד בשדות
+const clearError = () => {
+    errorDiv.innerText = "";
+};
+usernameInput.oninput = clearError;
+passwordInput.oninput = clearError;
+confirmPasswordInput.oninput = clearError;
 
 signupButton.onclick = async () => {
     const username = usernameInput.value;
     const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
 
-    if (!username || !password) {
-        alert("Please fill in all fields");
+    // 1. בדיקה שכל השדות מלאים
+    if (!username || !password || !confirmPassword) {
+        errorDiv.innerText = "Please fill in all fields."; // 🌟 הצגה בדיב במקום אלרט
         return;
     }
 
+    // 2. בדיקת אבטחה: האם הסיסמאות תואמות?
+    if (password !== confirmPassword) {
+        errorDiv.innerText = "Passwords do not match! Please try again."; // 🌟 הצגה באדום בדף
+        return;
+    }
+
+    // מנקים שגיאות קודמות לפני השליחה לשרת
+    errorDiv.innerText = "";
+
+    // 3. שליחה לשרת
     const returnedToken = await send<string>("signUp", username, password);
 
     if (returnedToken === "") {
-        alert("Username already exists!");
+        errorDiv.innerText = "Username already exists!"; // 🌟 הצגה בדיב אם המשתמש תפוס
     } else {
         localStorage.setItem("token", returnedToken);
-        alert("Registered and logged in successfully!");
-        location.href = "index.html"; // מעבר לדף הבית
+        location.href = "index.html"; 
     }
 };

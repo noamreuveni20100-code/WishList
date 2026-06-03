@@ -2,15 +2,16 @@
 <html lang="he">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mywishlist - Sign Up</title>
     <link rel="stylesheet" href="/website/styles/general.css" />
+    <link rel="stylesheet" href="shared.css" />
     <link rel="stylesheet" href="signUp.css" />
-    <title>mywishlist - Create Account</title>
-    <link rel="stylesheet" href="shared.css">
   </head>
 
   <body>
     <div id="boxDiv">
-      <h1>Join mywishlist</h1>
+      <h1>Let's Sign Up</h1>
 
       <table>
         <tr>
@@ -19,18 +20,21 @@
         </tr>
         <tr>
           <td>Password:</td>
-          <td><input id="passwordInput" type="password" placeholder="Create password..." /></td>
+          <td><input id="passwordInput" type="password" placeholder="Choose a password..." /></td>
         </tr>
         <tr>
           <td>Confirm:</td>
-          <td><input id="confirmInput" type="password" placeholder="Repeat password..." /></td>
+          <td><input id="confirmPasswordInput" type="password" placeholder="Confirm your password..." /></td>
         </tr>
       </table>
+      
       <br />
-      <button id="submitButton">Create Account</button>
+      <button id="submitButton">Sign Up</button>
       <br />
+      
       <div id="errorDiv"></div>
       <br />
+      
       <p>Already have an account? <a href="logIn.html">Log In here</a></p>
     </div>
 

@@ -1,0 +1,119 @@
+/* עיצוב רקע כללי לדף הלוגין */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7f6; /* רקע אפרפר-בהיר נעים לעין */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* התיבה המרכזית של הלוגין */
+#boxDiv {
+  background-color: #ffffff; /* רקע לבן נקי לתיבה */
+  max-width: 450px;
+  width: 90%;
+  margin: 80px auto; /* מרווח מלמעלה ומקומם באמצע */
+  padding: 40px;
+  border-radius: 12px; /* פינות מעוגלות ויפות */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* צל עדין שנותן עומק */
+  text-align: center; /* מרכז את הכותרות והכפתורים */
+  border: 1px solid #e2e8f0;
+}
+
+/* הכותרת המרכזית בתוך התיבה */
+#boxDiv h1 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 38px;
+  color: #111;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+/* עיצוב הטבלה שמחזיקה את האינפוטים */
+#boxDiv table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px; /* מרווח אנכי יפה בין השורות */
+  margin-bottom: 10px;
+}
+
+/* עיצוב הטקסט "Username:" ו-"Password:" */
+#boxDiv td:first-child {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4a5568;
+  text-align: left;
+  width: 30%;
+  padding-right: 10px;
+}
+
+/* תיבות הקלט (Inputs) */
+#boxDiv input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box; /* מונע מהאינפוט לחרוג מהטבלה */
+}
+
+/* אפקט החלקה כשלוחצים על האינפוט כדי להקליד */
+#boxDiv input:focus {
+  border-color: rgba(118, 199, 231, 1); /* צבע התכלת של האתר */
+  box-shadow: 0 0 0 3px rgba(118, 199, 231, 0.25);
+}
+
+/* כפתור ה-Log In הגדול */
+#submitButton {
+  width: 100%;
+  padding: 14px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 24px;
+  letter-spacing: 1px;
+  background-color: #111; /* כפתור שחור חזק כמו הפס של הבר */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 10px;
+}
+
+/* אפקטים במעבר עכבר ולחיצה על הכפתור */
+#submitButton:hover {
+  background-color: rgba(118, 199, 231, 1); /* הופך לתכלת במעבר עכבר */
+  color: #111;
+}
+
+#submitButton:active {
+  transform: scale(0.98);
+}
+
+/* דיב השגיאות */
+#errorDiv {
+  color: #e53e3e;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* הקישור למעבר לסיינאפ בתחתית התיבה */
+#boxDiv p {
+  font-size: 16px;
+  color: #718096;
+  margin-top: 20px;
+}
+
+#boxDiv p a {
+  color: rgba(60, 150, 190, 1);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#boxDiv p a:hover {
+  text-decoration: underline;
+}

@@ -1,23 +1,27 @@
 import { send } from "clientUtilities";
-import { createBar } from "script/funcs"; // 🌟 ייבוא הבר
+import { createBar } from "script/funcs"; 
 import { User } from "script/types";
 
-// --- 1. טעינת הבר העליון החכם ---
 const token = localStorage.getItem("token");
 let user: User | null = null;
 
-if (token && token !== "") {
+// בדיקה אם המשתמש כבר מחובר
+if (token && token.trim() !== "") {
     const response = await send<any>("getUser", token);
     if (response && response !== "") {
         user = response as User;
+        // אם הוא מחובר, נעביר אותו ישר לדף הבית
+        location.href = "index.html";
     }
 }
+
+// טעינת הבר העליון
 document.body.prepend(createBar(user)); 
 
-
-const usernameInput = document.querySelector<HTMLInputElement>("#username")!;
-const passwordInput = document.querySelector<HTMLInputElement>("#password")!;
-const loginButton = document.querySelector<HTMLButtonElement>("#login-btn")!;
+// 🌟 ה-IDs המדויקים מה-HTML שלך!
+const usernameInput = document.querySelector<HTMLInputElement>("#usernameInput")!;
+const passwordInput = document.querySelector<HTMLInputElement>("#passwordInput")!;
+const loginButton = document.querySelector<HTMLButtonElement>("#submitButton")!;
 
 loginButton.onclick = async () => {
     const username = usernameInput.value;
@@ -34,7 +38,6 @@ loginButton.onclick = async () => {
         alert("Invalid username or password");
     } else {
         localStorage.setItem("token", returnedToken);
-        alert("Logged in successfully!");
-        location.href = "index.html"; // מעבר לדף הבית
+        location.href = "index.html"; 
     }
 };

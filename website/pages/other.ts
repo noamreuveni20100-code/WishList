@@ -12,7 +12,7 @@ const addButton = document.querySelector<HTMLButtonElement>("#add-btn")!;
 // 1. בדיקת אבטחה: משיכת הטוקן מה-LocalStorage
 const token = localStorage.getItem("token");
 
-// 🌟 אם אין טוקן בכלל, או שהוא ריק - המשתמש לא מחובר! נעביר אותו ישר ללוגין
+// אם אין טוקן בכלל, או שהוא ריק - המשתמש לא מחובר! נעביר אותו ישר ללוגין
 if (!token || token === "") {
      location.href = "logIn.html"; 
      alert("You must be logged in to add products to your wishlist!");
