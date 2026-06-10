@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Linq; // חשוב מאוד בשביל ה-Where וה-FirstOrDefault
+using System.Linq;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Project.DatabaseUtilities;
 using Project.LoggingUtilities;
@@ -26,14 +28,23 @@ class Program
 
       try
       {
-        // --- קבלת מוצרים: מסונן לפי המשתמש המחובר ---
+        // --- קבלת מוצרים: מסונן לפי ה-Id המספרי של המשתמש ---
         if (request.Name == "getProducts")
         {
           string token = request.GetParams<string>();
-          
-          // מחזיר רק את המוצרים ששייכים לטוקן של המשתמש הזה
-          var userProducts = database.Products.Where(p => p.UserToken == token).ToList();
-          request.Respond(userProducts);
+          var user = database.Users.FirstOrDefault(u => u.Token == token);
+
+          if (user == null)
+          {
+            request.SetStatusCode(401); 
+            request.Respond(new System.Collections.Generic.List<Product>()); 
+          }
+          else
+          {
+            // 🔥 שינוי: מסננים לפי ה-Id של המשתמש (הופכים אותו לטקסט שיתאים לשדה UserId)
+            var userProducts = database.Products.Where(p => p.UserId == user.Id.ToString()).ToList();
+            request.Respond(userProducts);
+          }
         }
 
         else if (request.Name == "getProductById")
@@ -44,6 +55,7 @@ class Program
           if (product == null)
           {
             request.SetStatusCode(404);
+            request.Respond("");
           }
           else
           {
@@ -51,13 +63,26 @@ class Program
           }
         }
 
-        // --- הוספת מוצר: מקבל גם את הטוקן של המשתמש ---
+        // --- הוספת מוצר: מקושר ל-Id המספרי של המשתמש ---
         else if (request.Name == "addProduct")
         {
           var (name, price, imageUrl, pageUrl, description, userToken) = request.GetParams<(string, double, string, string, string, string)>();
-          var product = new Product(name, price, imageUrl, pageUrl, description, userToken);
-          database.Products.Add(product);
-          database.SaveChanges();
+          
+          var user = database.Users.FirstOrDefault(u => u.Token == userToken);
+
+          if (user == null)
+          {
+            request.SetStatusCode(401);
+            request.Respond("User unauthorized");
+          }
+          else
+          {
+            // 🔥 שינוי: שומרים במוצר את ה-Id המספרי של המשתמש (user.Id.ToString()) במקום את ה-Username!
+            var product = new Product(name, price, imageUrl, pageUrl, description, user.Id.ToString());
+            database.Products.Add(product);
+            database.SaveChanges();
+            request.Respond("Product added");
+          }
         }
 
         else if (request.Name == "deleteProduct")
@@ -69,9 +94,16 @@ class Program
           {
             database.Products.Remove(product);
             database.SaveChanges();
+            request.Respond("Product deleted");
+          }
+          else
+          {
+            request.SetStatusCode(404);
+            request.Respond("");
           }
         }
 
+        // --- הרשמה ---
         else if (request.Name == "signUp")
         {
           var (username, password) = request.GetParams<(string, string)>();
@@ -83,15 +115,17 @@ class Program
           }
           else
           {
-            var newUser = new User(username, password);
+            string actualToken = Guid.NewGuid().ToString();
+            var newUser = new User(username, password, actualToken);
+            
             database.Users.Add(newUser);
             database.SaveChanges();
 
-            string token = newUser.Username; 
-            request.Respond(token);
+            request.Respond(actualToken);
           }
         }
 
+        // --- התחברות ---
         else if (request.Name == "logIn")
         {
           var (username, password) = request.GetParams<(string, string)>();
@@ -103,15 +137,14 @@ class Program
           }
           else
           {
-            string token = user.Username;
-            request.Respond(token);
+            request.Respond(user.Token);
           }
         }
 
         else if (request.Name == "getUser")
         {
           string token = request.GetParams<string>();
-          var user = database.Users.FirstOrDefault(u => u.Username == token);
+          var user = database.Users.FirstOrDefault(u => u.Token == token);
           
           if (user == null) 
           {
@@ -127,19 +160,21 @@ class Program
       catch (Exception exception)
       {
         request.SetStatusCode(500);
+        request.Respond("Internal Server Error");
         Log.WriteException(exception);
       }
     }
   }
 }
 
-class Database() : DatabaseCore("database")
+class Database : DatabaseCore
 {
+  public Database() : base("database") { }
   public DbSet<Product> Products { get; set; } = default!;
   public DbSet<User> Users { get; set; } = default!; 
 }
 
-class Product(string name, double price, string imageUrl, string pageUrl, string description, string userToken)
+class Product(string name, double price, string imageUrl, string pageUrl, string description, string userId)
 {
   public int Id { get; set; } = default!;
   public string Name { get; set; } = name;
@@ -147,12 +182,15 @@ class Product(string name, double price, string imageUrl, string pageUrl, string
   public string ImageUrl { get; set; } = imageUrl;
   public string PageUrl { get; set; } = pageUrl;
   public string Description { get; set; } = description;
-  public string UserToken { get; set; } = userToken; // השדה החדש שמחבר את המוצר למשתמש
+  public string UserId { get; set; } = userId; 
+
+  public User? User { get; set; } = default!;
 }
 
-class User(string username, string password)
+class User(string username, string password, string token)
 {
   public int Id { get; set; } = default!;
   public string Username { get; set; } = username;
   public string Password { get; set; } = password;
+  public string Token { get; set; } = token;
 }
