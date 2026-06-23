@@ -1,52 +1,18 @@
-import { send } from "clientUtilities";
-import { create } from "componentUtilities";
-import { createBar } from "script/funcs";
-import { User } from "script/types"; 
+// --- לוגיקת כפתור הפלוס (בדיקת התחברות והפניה) ---
+const plusButton = document.getElementById('plusBtn') as HTMLButtonElement | null;
 
-const productsList = document.querySelector<HTMLUListElement>("#productsList")!;
-const welcomeMessage = document.querySelector<HTMLDivElement>("#welcomeMessage")!;
+if (plusButton) {
+    plusButton.addEventListener('click', (): void => {
+        // בודק את המפתחות הנפוצים ב-localStorage (השרת שלך משתמש ב-token)
+        const token: string | null = localStorage.getItem('token');
+        const user: string | null = localStorage.getItem('user');
 
-const token = localStorage.getItem("token");
-let user: User | null = null;
-
-if (token && token !== "") {
-    const response = await send<any>("getUser", token);
-    if (response && response !== "") {
-        user = response as User;
-    }
-}
-
-document.body.prepend(createBar(user));
-
-if (user) {
-    welcomeMessage.style.display = "none";
-    productsList.style.display = "block";
-} else {
-    welcomeMessage.style.display = "block";
-    productsList.style.display = "none";
-}
-
-const products = await send<any[]>("getProducts", token || "");
-
-for (const p of products) {
-    const li = create("li");
-    li.className = "product-item";
-    li.innerText = `${p.name} - ${p.price}₪`;
-
-    li.onclick = () => {
-        location.href = `product.html?id=${p.id}`;
-    };
-    
-    const deleteBtn = create("button", { className: "deleteBtn" },
-        create("img", { src: "../images/trash.png" })
-    );
-    
-    deleteBtn.onclick = async (event) => {
-        event.stopPropagation();
-        await send("deleteProduct", p.id);
-        location.reload(); 
-    };
-
-    li.append(deleteBtn);
-    productsList.append(li);
-}
+        if (token || user) {
+            // אם המשתמש מחובר -> מעביר לעמוד הוספת מוצר
+            window.location.href = 'other.html';
+        } else {
+            // אם המשתמש לא מחובר -> מעביר לעמוד התחברות
+            window.location.href = 'logIn.html';
+        }
+    });
+}   

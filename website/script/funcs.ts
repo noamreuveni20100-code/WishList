@@ -21,7 +21,7 @@ export function createBar(user: User | null): HTMLElement {
     if (user) {
         // יוצרים אלמנט span לשם המשתמש כדי שנוכל לעצב אותו יפה ב-CSS
         const welcomeSpan = document.createElement("span");
-        welcomeSpan.innerText = `Hello, ${user.username} | `;
+        welcomeSpan.innerText = `Hello, ${user.Username} | `;
         userArea.appendChild(welcomeSpan);
         
         const logoutBtn = document.createElement("button");

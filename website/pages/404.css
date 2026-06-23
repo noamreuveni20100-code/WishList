@@ -1,16 +1,68 @@
+/* איפוס כללי כדי שהדף יישב בול על המסך */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa; /* רקע בהיר ונעים */
+    color: #333333; /* צבע טקסט כהה וקריא */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ממרכז את התוכן אנכית ואופקית לכל גובה המסך */
+}
+
+/* הקונטיינר של התוכן */
 #containerDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    text-align: center;
+    padding: 40px;
+    background: #ffffff; /* רקע לבן לכרטיסייה */
+    border-radius: 12px; /* פינות מעוגלות בעדינות */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* צל עדין מאוד שנותן עומק */
+    max-width: 450px;
+    width: 90%;
 }
 
+/* המספר 404 הגדול */
 h1 {
-  font-size: 100px;
-  margin-bottom: 0px;
+    font-size: 6rem;
+    margin: 0;
+    color: #dc3545; /* צבע אדום-אזהרה עדין */
+    line-height: 1;
 }
 
+/* כותרת המשנה Not Found */
 h2 {
-  font-size: 50px;
-  margin-top: 0px;
+    font-size: 1.8rem;
+    margin: 10px 0 15px 0;
+    color: #495057;
 }
 
+/* הטקסט של ההסבר */
+div {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 25px; /* רווח במקום ה-<br /> הישן */
+}
+
+/* עיצוב הקישור בתור כפתור לחיץ ומזמין */
+a {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff; /* כחול מודרני */
+    color: #ffffff;
+    text-decoration: none; /* ביטול הקו התחתון המציק */
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* אפקט קטן כשעוברים עם העכבר מעל הכפתור (Hover) */
+a:hover {
+    background-color: #0056b3; /* כחול קצת יותר כהה */
+}
+
+/* אפקט קטן בזמן לחיצה */
+a:active {
+    transform: scale(0.98);
+}

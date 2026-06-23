@@ -5,21 +5,39 @@
   <link rel="stylesheet" href="index.css" />
   <title>Index Page</title>
   <link rel="stylesheet" href="shared.css">
-
 </head>
-
 
 <body>
 
-<div id="welcomeMessage">
-  <h1>Welcome to mywishlist</h1>
-  <p>Discover, organize, and track your personal wishlist items in one neat place.<br>Please log in or create an account to start managing your list.</p>
-  <a href="logIn.html" class="cta-button">Get Started</a>
-</div>
+  <div id="welcomeMessage">
+    <h1>Welcome to mywishlist</h1>
+    <p>Discover, organize, and track your personal wishlist items in one neat place.<br>Please log in or create an account to start managing your list.</p>
+    <a href="logIn.html" class="cta-button">Get Started</a>
+  </div>
 
-  <button class="plus-btn" onclick="location.href='other.html'">+</button>
+  <button class="plus-btn" id="plusBtn">+</button>
+  
   <ul id="productsList"></ul>
-  <script type="module" src="index.js"></script>
+
+  <script type="module">
+    // קוד הטיפול בלחיצה
+    const plusButton = document.getElementById('plusBtn');
+
+    if (plusButton) {
+        plusButton.addEventListener('click', () => {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+
+            if (token || user) {
+                // מחובר -> מעביר לעמוד הוספת מוצר
+                window.location.href = 'other.html';
+            } else {
+                // לא מחובר -> מעביר לעמוד התחברות
+                window.location.href = 'logIn.html';
+            }
+        });
+    }
+  </script>
 </body>
 
 </html>

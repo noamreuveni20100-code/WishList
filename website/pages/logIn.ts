@@ -1,5 +1,5 @@
 import { send } from "clientUtilities";
-import { createBar } from "script/funcs"; 
+import { createBar } from "script/funcs";
 import { User } from "script/types";
 
 const token = localStorage.getItem("token");
@@ -16,7 +16,7 @@ if (token && token.trim() !== "") {
 }
 
 // טעינת הבר העליון
-document.body.prepend(createBar(user)); 
+document.body.prepend(createBar(user));
 
 // 🌟 ה-IDs המדויקים מה-HTML שלך!
 const usernameInput = document.querySelector<HTMLInputElement>("#usernameInput")!;
@@ -32,12 +32,12 @@ loginButton.onclick = async () => {
         return;
     }
 
-    const returnedToken = await send<string>("logIn", username, password);
+    const returnedToken = await send<string | null>("logIn", username, password);
 
-    if (returnedToken === "") {
+    if (returnedToken == null || returnedToken === "") {
         alert("Invalid username or password");
     } else {
         localStorage.setItem("token", returnedToken);
-        location.href = "index.html"; 
+        location.href = "index.html";
     }
 };
