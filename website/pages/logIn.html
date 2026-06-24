@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="he">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mywishlist - Log In</title>
-    <link rel="stylesheet" href="/website/styles/general.css" />
+
+    <!-- קבצי העיצוב של העמוד -->
     <link rel="stylesheet" href="shared.css" />
     <link rel="stylesheet" href="logIn.css" />
   </head>
 
   <body>
+    <!-- הקופסה המרכזית של ההתחברות -->
     <div id="boxDiv">
       <h1>Log In to mywishlist</h1>
 
+      <!-- טופס התחברות בסיסי -->
       <table>
         <tr>
           <td>Username:</td>
@@ -25,15 +26,21 @@
       </table>
       
       <br />
+
+      <!-- כפתור שמפעיל את ההתחברות ב-TS -->
       <button id="submitButton">Log In</button>
+
       <br />
       
+      <!-- כאן יוצגו הודעות שגיאה אם יהיו -->
       <div id="errorDiv"></div>
+
       <br />
       
       <p>Don't have an account? <a href="signUp.html">Sign Up here</a></p>
     </div>
 
+    <!-- קובץ ה-JS שנוצר מה-TS -->
     <script type="module" src="logIn.js"></script>
   </body>
 </html>
