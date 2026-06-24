@@ -1,49 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Index Page</title>
 
-    <!-- קבצי העיצוב של העמוד -->
-    <link rel="stylesheet" href="other.css" />
-    <link rel="stylesheet" href="shared.css" />
-  </head>
+<head>
+  <link rel="stylesheet" href="index.css" />
+  <title>Index Page</title>
+  <link rel="stylesheet" href="shared.css">
+</head>
 
-  <body>
-    <!-- הקופסה של טופס הוספת מוצר -->
-    <div class="product-form-container">
-      <h2>Add a new product</h2>
+<body>
 
-      <div class="form-field">
-        <label for="product-name">:Product name</label>
-        <input type="text" id="product-name" name="productName" required>
-      </div>
+  <div id="welcomeMessage">
+    <h1>Welcome to mywishlist</h1>
+    <p>
+      Discover, organize, and track your personal wishlist items in one neat place.<br>
+      Please log in or create an account to start managing your list.
+    </p>
+    <a href="logIn.html" class="cta-button">Get Started</a>
+  </div>
 
-      <div class="form-field">
-        <label for="product-price">:Price</label>
-        <input type="number" id="product-price" name="productPrice" step="0.01" required>
-      </div>
+  <button class="plus-btn" id="plusBtn">+</button>
 
-      <div class="form-field">
-        <label for="product-image">:Image URL</label>
-        <input type="url" id="product-image" name="productImage" required>
-      </div>
+  <ul id="productsList"></ul>
 
-      <div class="form-field">
-        <label for="product-link">:Product Link</label>
-        <input type="url" id="product-link" name="productLink" placeholder="https://example.com" required>
-      </div>
+  <script type="module" src="index.js"></script>
 
-      <div class="form-field">
-        <label for="product-description">:Product description</label>
-        <textarea id="product-description" name="productDescription" rows="4"></textarea>
-      </div>
+</body>
 
-      <!-- הכפתור שמפעיל ב-TS את הוספת המוצר -->
-      <button id="add-btn">Add product</button>
-    </div>
-
-    <!-- קובץ ה-JS שנוצר מה-TS -->
-    <script type="module" src="other.js"></script>
-  </body>
 </html>
